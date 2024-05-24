@@ -24,8 +24,8 @@ public class UserRoleService {
         return userRoleRepository.findByUserIdAndRoleId(userId,roleId);
     }
 
-    public void saveUserWithRole(String userName,String roleName){
-        UserEntity userFromDB = userService.findUserByEmail(userName);
+    public void saveUserWithRole(String email,String roleName){
+        UserEntity userFromDB = userService.findUserByEmail(email);
         RoleEntity role = roleService.getRoleByName(roleName.toUpperCase());
 
         if (Objects.isNull(userFromDB)){

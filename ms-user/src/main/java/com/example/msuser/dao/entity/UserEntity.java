@@ -1,5 +1,6 @@
 package com.example.msuser.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -42,7 +43,11 @@ public class UserEntity implements UserDetails {
 
     @OneToOne
     @JoinColumn(name = "cards_id")
+    @JsonIgnore
     CardEntity cardsId;
+
+    @OneToOne(mappedBy = "userId")
+    OrderEntity order;
 
     @PrePersist
     public void assignDefaultValues(){

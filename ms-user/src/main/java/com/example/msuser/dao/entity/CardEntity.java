@@ -1,5 +1,7 @@
 package com.example.msuser.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -23,13 +25,17 @@ public class CardEntity {
     String cardNumber;
     int status;
 
-    @ManyToOne
-    @JoinColumn(name = "consumer_id")
+    @OneToOne(mappedBy = "cardsId")
+    @JsonIgnore
     ConsumerEntity consumer;
 
     @OneToOne(mappedBy = "cardsId")
     @ToString.Exclude
+    @JsonIgnore
     UserEntity user;
+
+    @OneToOne(mappedBy = "cardId")
+    OrderEntity order;
 
     @PrePersist
     public void assignDefaultValue(){

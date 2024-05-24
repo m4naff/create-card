@@ -14,11 +14,3 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  liquibase:
-    change-log: classpath:liquibase/changelog-master.yml #here we give the location of changelog file that store the location of the changesets
-
-  cache:
-    type: redis
-redis:
-  host: localhost
-  port: 6379
