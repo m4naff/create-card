@@ -15,5 +15,5 @@ spring:
       ddl-auto: update
     show-sql: true
 
-  url:
-    ms-notifications: http://localhost:7575/notifications
+server:
+  port: 7575

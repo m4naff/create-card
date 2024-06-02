@@ -12,8 +12,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 import static com.example.msuser.dto.constant.Status.ACTIVE;
+import static com.example.msuser.dto.constant.Status.DE_ACTIVE;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +25,10 @@ public class ConsumerService {
     ConsumerRepository consumerRepository;
     CardRepository cardRepository;
     OrderRepository orderRepository;
+
+    public List<ConsumerEntity> seeAvailableConsumers(){
+        return consumerRepository.findAllByStatus(ACTIVE.getStatus());
+    }
     public List<ConsumerEntity> findAll(){
         return consumerRepository.findAll();
     }
@@ -43,15 +50,24 @@ public class ConsumerService {
         var order = orderRepository.findById(consumer.getOrder().getId()).orElseThrow();
         if(cardOpt.isPresent()){
             var card = cardOpt.get();
+            card.setCardNumber(generate8DigitNumber());
             card.setStatus(ACTIVE.getStatus());//it means that card has been activated and card number will be created
             consumer.setStatus(ACTIVE.getStatus()); // making it active means that consumer can activate other cards
             consumer.setCardsId(null);
-            order.setStatus(ACTIVE.getStatus()); //if it 1 it means that order has been completed
+            order.setStatus(DE_ACTIVE.getStatus()); //if it 1 it means that order has been completed
+            order.setConsumerId(null);
             consumerRepository.save(consumer);
             cardRepository.save(card);
+            orderRepository.save(order);
             return card;
         }
         return null;
+    }
+
+    private String generate8DigitNumber() {
+        final Random RANDOM = new Random();
+        int number = RANDOM.nextInt(90000000) + 10000000;
+        return String.valueOf(number);
     }
 
 }

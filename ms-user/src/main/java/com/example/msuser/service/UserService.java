@@ -5,7 +5,9 @@ import com.example.msuser.dao.repository.UserRepository;
 import com.example.msuser.dto.request.SignInRequest;
 import com.example.msuser.dto.request.SignUpRequest;
 import com.example.msuser.dto.response.AuthenticationResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,6 +44,7 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional //using it to handle the lazy loading
     public AuthenticationResponse signIn(SignInRequest request){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword())

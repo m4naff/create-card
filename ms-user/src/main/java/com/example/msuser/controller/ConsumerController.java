@@ -1,15 +1,14 @@
 package com.example.msuser.controller;
 
 import com.example.msuser.dao.entity.CardEntity;
+import com.example.msuser.dao.entity.ConsumerEntity;
 import com.example.msuser.service.ConsumerService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,4 +23,8 @@ public class ConsumerController {
         return consumerService.activateCard(name);
     }
 
+    @GetMapping("available-consumers")
+    public List<ConsumerEntity> seeAvailableConsumer(){
+        return consumerService.seeAvailableConsumers();
+    }
 }

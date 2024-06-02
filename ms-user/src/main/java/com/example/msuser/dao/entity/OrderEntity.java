@@ -36,6 +36,6 @@ public class OrderEntity {
 
     @PrePersist
     public void signDefaultValue(){
-        status = 0; //if it is zero order has created but not card if it is 1 it means that card has been created
+        status = 1; //if it is 1 order has created but not card, if it is 0 it means that card has been created and order finished
     }
 }
