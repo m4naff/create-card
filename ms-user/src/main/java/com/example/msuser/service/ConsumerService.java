@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -23,8 +24,10 @@ import static com.example.msuser.dto.constant.Status.DE_ACTIVE;
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class ConsumerService {
     ConsumerRepository consumerRepository;
+    ConsumerService consumerService;
     CardRepository cardRepository;
     OrderRepository orderRepository;
+    private final NotificationService notificationService;
 
     public List<ConsumerEntity> seeAvailableConsumers(){
         return consumerRepository.findAllByStatus(ACTIVE.getStatus());
@@ -62,6 +65,19 @@ public class ConsumerService {
             return card;
         }
         return null;
+    }
+
+    public void activateCard(){
+        List<CardEntity> cardEntities = fetchAllDeActiveCards();
+        cardEntities.forEach(card -> {
+            card.setStatus(ACTIVE.getStatus());
+            card.setCardNumber(consumerService.generate8DigitNumber());
+            cardRepository.save(card);
+        });
+    }
+
+    private List<CardEntity> fetchAllDeActiveCards(){
+        return cardRepository.findAllByStatus(DE_ACTIVE.getStatus()).orElseGet(ArrayList::new);
     }
 
     private String generate8DigitNumber() {

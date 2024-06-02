@@ -20,5 +20,4 @@ public class NotificationService {
         notificationRepository.save(notifications);
         log.info("ActionLog.sendNotification.successful: {}",notifications);
     }
-
 }

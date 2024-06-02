@@ -15,5 +15,11 @@ spring:
       ddl-auto: update
     show-sql: true
 
+scheduler:
+  cron:
+    expired-something: 0 31 16 * * ?
+      # s m h M every # at 20:00 on 2nd day of every month these are cron job
+    # https://crontab.guru/
+
   url:
     ms-notifications: http://localhost:7575/notifications
