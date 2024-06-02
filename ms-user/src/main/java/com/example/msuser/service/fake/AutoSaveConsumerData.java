@@ -3,6 +3,7 @@
 //import com.example.msuser.dao.entity.ConsumerEntity;
 //import com.example.msuser.dao.entity.RoleEntity;
 //import com.example.msuser.service.ConsumerService;
+//import com.example.msuser.service.RoleAuthorityService;
 //import com.example.msuser.service.RoleService;
 //import com.example.msuser.service.UserRoleService;
 //import jakarta.annotation.PostConstruct;
@@ -20,6 +21,7 @@
 //    ConsumerService consumerService;
 //    UserRoleService userRoleService;
 //    RoleService roleService;
+//    RoleAuthorityService roleAuthorityService;
 //
 ////    @PostConstruct
 //    public void saveConsumers(){
@@ -57,5 +59,12 @@
 //    public void saveUsersRoles() {
 //        userRoleService.saveUserWithRole("murad@gmail.com", "USER");
 //        userRoleService.saveUserWithRole("cavid@gmail.com", "USER");
+//    }
+//
+////    @PostConstruct
+//    private void saveRolesAndAuthorities() {
+//        roleAuthorityService.saveRoleWithAuthorityList("USER", Set.of("read"));
+//        roleAuthorityService.saveRoleWithAuthorityList("MANAGER", Set.of("read", "update", "delete"));
+//        roleAuthorityService.saveRoleWithAuthorityList("ADMIN", Set.of("read", "update", "delete", "write"));
 //    }
 //}

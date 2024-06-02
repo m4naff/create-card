@@ -4,6 +4,7 @@ import com.example.msuser.dao.entity.AuthorityEntity;
 import com.example.msuser.dao.entity.RoleAuthorityEntity;
 import com.example.msuser.dao.entity.RoleEntity;
 import com.example.msuser.dao.repository.RoleAuthorityRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,27 @@ public class RoleAuthorityService {
         if (roleAuthorityList.isEmpty()) return;
 
         roleAuthorityRepository.saveAll(roleAuthorityList);
+    }
+
+    @PostConstruct
+    private void saveAuthorities() {
+        AuthorityEntity writeAuthority = AuthorityEntity.builder()
+                .name("write")
+                .build();
+
+        AuthorityEntity readAuthority = AuthorityEntity.builder()
+                .name("read")
+                .build();
+
+        AuthorityEntity deleteAuthority = AuthorityEntity.builder()
+                .name("delete")
+                .build();
+
+        AuthorityEntity updateAuthority = AuthorityEntity.builder()
+                .name("update")
+                .build();
+
+        authorityService.saveAuthorityList(Set.of(readAuthority, updateAuthority, deleteAuthority, writeAuthority));
     }
 
 }

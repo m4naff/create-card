@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class ActivateCardCron {
     ConsumerService consumerService;
-    @Scheduled(fixedDelayString = "PT8H")
+    @Scheduled(fixedDelayString = "PT12H")
     @SchedulerLock(name = "update-any-info-in-something",
     lockAtLeastFor = "PT15S",
     lockAtMostFor = "PT30M")
