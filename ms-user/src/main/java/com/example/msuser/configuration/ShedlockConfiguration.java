@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableScheduling
-@EnableSchedulerLock(defaultLockAtMostFor = "P1TH")
+@EnableSchedulerLock(defaultLockAtMostFor = "PT1H")
 public class ShedlockConfiguration {
 
     @Bean

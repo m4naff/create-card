@@ -11,4 +11,6 @@ public interface ConsumerRepository extends JpaRepository<ConsumerEntity,Long> {
     Optional<ConsumerEntity> findByName(String name);
 
     List<ConsumerEntity> findAllByStatus(int status);//if status equals 1 it means consumer is available
+
+    Optional<ConsumerEntity> findById(Long id);
 }

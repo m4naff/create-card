@@ -24,7 +24,6 @@ import static com.example.msuser.dto.constant.Status.DE_ACTIVE;
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class ConsumerService {
     ConsumerRepository consumerRepository;
-    ConsumerService consumerService;
     CardRepository cardRepository;
     OrderRepository orderRepository;
     private final NotificationService notificationService;
@@ -67,11 +66,19 @@ public class ConsumerService {
         return null;
     }
 
-    public void activateCard(){
+    public void activateDeActiveCards(){
         List<CardEntity> cardEntities = fetchAllDeActiveCards();
         cardEntities.forEach(card -> {
+            var consumer = consumerRepository.findById(card.getConsumer().getId()).get();
+            consumer.setStatus(ACTIVE.getStatus());
+            consumer.setCardsId(null);
+            var order = orderRepository.findById(card.getOrder().getId()).get();
+            order.setStatus(DE_ACTIVE.getStatus());
+            order.setConsumerId(null);
             card.setStatus(ACTIVE.getStatus());
-            card.setCardNumber(consumerService.generate8DigitNumber());
+            card.setCardNumber(generate8DigitNumber());
+            orderRepository.save(order);
+            consumerRepository.save(consumer);
             cardRepository.save(card);
         });
     }

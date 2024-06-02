@@ -37,6 +37,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
+	implementation 'org.liquibase:liquibase-core'
 
 	implementation 'net.javacrumbs.shedlock:shedlock-spring:4.42.0'
 	implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:4.42.0'
