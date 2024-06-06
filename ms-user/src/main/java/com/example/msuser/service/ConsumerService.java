@@ -50,6 +50,9 @@ public class ConsumerService {
         var consumer = findByName(name);
         var cardOpt = cardRepository.findById(consumer.getCardsId().getId());
         var order = orderRepository.findById(consumer.getOrder().getId()).orElseThrow();
+        if(!consumer.getCardsId().getId().equals(cardOpt.get().getId())){
+            throw new RuntimeException("Consumer is set for the wrong card");
+        }
         if(cardOpt.isPresent()){
             var card = cardOpt.get();
             card.setCardNumber(generate8DigitNumber());
